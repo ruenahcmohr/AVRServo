@@ -1,0 +1,32 @@
+
+unsigned int dobyte(char data) {
+
+  static unsigned char lastState = 2;
+  static unsigned int command;
+  static unsigned int  argument;
+
+  if ((data & 0x80) == 0) {
+    lastState = 0;
+    command   = (data >> 3);
+    argument  = (argument & 0xFFF8) | (data & 0x07); // glue in its 0 through 2
+  } else {
+    argument = (argument & 0x0007) | ((data & 0x7F) << 3); //glue in bits 3 through 9
+
+    if (laststa
+    if ((command == 9) || (command == 10)) {
+      // 17 bit comand (16 bits used)
+      argument = (argument & 0x07FF) | (data << 11);
+      
+      
+    } else {
+      if (lastState == 0) {
+         lastState == 1;
+         return servoCmd(command, argument);         
+      }
+    }
+    
+    
+  }
+
+  return 0;
+}
